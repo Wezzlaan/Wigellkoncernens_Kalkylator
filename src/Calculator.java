@@ -21,6 +21,8 @@ public class Calculator {
                 return subtract();
             case '*':
                 return multiply();
+            case '/':
+                return divide();
             default:
                 throw new IllegalArgumentException("Ogiltig operator: " + operator);
         }
@@ -57,5 +59,16 @@ public class Calculator {
             product *= numbers.get(i);
         }
         return product;
+    }
+
+    public double divide()
+    {
+        double quotient = numbers.get(0);
+
+        for (int i = 1; i < numbers.size(); i++)
+        {
+            quotient /= numbers.get(i);
+        }
+        return quotient;
     }
 }
