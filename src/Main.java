@@ -12,10 +12,11 @@ public class Main {
         double result;
 
         //Lägger till tal i ArrayList
-        numbers.add(5.0);
         numbers.add(-5.0);
+        numbers.add(-5.0);
+        numbers.add(10.0);
 
-        char operator = '+';
+        char operator = '-';
 
         Calculator calculator = new Calculator(numbers, operator);
 

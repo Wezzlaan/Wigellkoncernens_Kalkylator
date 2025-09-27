@@ -17,6 +17,8 @@ public class Calculator {
         {
             case '+':
                 return add();
+            case '-':
+                return subtract();
             default:
                 throw new IllegalArgumentException("Ogiltig operator: " + operator);
         }
@@ -31,5 +33,16 @@ public class Calculator {
             sum += numbers.get(i);
         }
         return sum;
+    }
+
+    public double subtract()
+    {
+        double difference = numbers.get(0);
+
+        for (int i = 1; i < numbers.size(); i++)
+        {
+            difference -= numbers.get(i);
+        }
+        return difference;
     }
 }
