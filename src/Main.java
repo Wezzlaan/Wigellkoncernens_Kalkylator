@@ -14,15 +14,20 @@ public class Main {
         //Lägger till tal i ArrayList
         numbers.add(9.0);
         numbers.add(3.0);
-        numbers.add(2.0);
+        //numbers.add(0.0);
 
         char operator = '/';
 
         Calculator calculator = new Calculator(numbers, operator);
 
-        result = calculator.calculate();
-
-        System.out.println(result);
+        try {
+            result = calculator.calculate();
+            System.out.println(result);
+        }
+        catch (ArithmeticException e)
+        {
+            System.out.println(e.getMessage());
+        }
         //TIP Press <shortcut actionId="ShowIntentionActions"/> with your caret at the highlighted text
         // to see how IntelliJ IDEA suggests fixing it.
 

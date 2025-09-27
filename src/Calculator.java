@@ -41,9 +41,9 @@ public class Calculator {
 
     public double subtract()
     {
-        double difference = numbers.get(0);
+        double difference = numbers.get(0); //Initieras difference till 0 så blir exempelvis uträkningen fel. Exempel: 2 - 2 räknas ut som 0 - 2 - 2. Svaret blir -4 istället för 0.
 
-        for (int i = 1; i < numbers.size(); i++)
+        for (int i = 1; i < numbers.size(); i++) //i = 1 eftersom första värdet i array redan är initierat i difference.
         {
             difference -= numbers.get(i);
         }
@@ -65,9 +65,15 @@ public class Calculator {
     {
         double quotient = numbers.get(0);
 
-        for (int i = 1; i < numbers.size(); i++)
-        {
-            quotient /= numbers.get(i);
+        for (int i = 1; i < numbers.size(); i++) {
+            double current = numbers.get(i); //Håller nuvarande tal i ArrayList för att kunna kollas för '0'.
+
+            if (current == 0.0) { //Man kan ej dividera med 0.
+                throw new ArithmeticException("Division med 0 är ej möjligt.");
+            }
+
+            quotient /= current;
+
         }
         return quotient;
     }
