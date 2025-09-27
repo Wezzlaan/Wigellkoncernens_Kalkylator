@@ -19,6 +19,8 @@ public class Calculator {
                 return add();
             case '-':
                 return subtract();
+            case '*':
+                return multiply();
             default:
                 throw new IllegalArgumentException("Ogiltig operator: " + operator);
         }
@@ -44,5 +46,16 @@ public class Calculator {
             difference -= numbers.get(i);
         }
         return difference;
+    }
+
+    public double multiply()
+    {
+        double product = numbers.get(0);
+
+        for (int i = 1; i < numbers.size(); i++)
+        {
+            product *= numbers.get(i);
+        }
+        return product;
     }
 }
