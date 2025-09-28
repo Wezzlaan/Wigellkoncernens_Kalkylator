@@ -1,4 +1,5 @@
 import java.util.ArrayList;
+import java.util.Scanner;
 
 //TIP To <b>Run</b> code, press <shortcut actionId="Run"/> or
 // click the <icon src="AllIcons.Actions.Execute"/> icon in the gutter.
@@ -8,26 +9,81 @@ public class Main {
         /*=====================================
         * PLACEHOLDER FÖR ATT TESTA FUNKTIONER
         * =====================================*/
-        ArrayList<Double> numbers = new ArrayList<Double>();
+        ArrayList<Double> numbers = new ArrayList<>();
         double result;
+        char operator;
 
-        //Lägger till tal i ArrayList
-        numbers.add(10.1);
-        numbers.add(1.0);
-        //numbers.add(0.0);
+        System.out.println("\n[1]: Addition\n[2]: Subtraktion\n[3]: Multiplikation\n[4]: Division\n[5]: Modulus\n[A]: Avsluta. ");
 
-        char operator = '%';
-
-        Calculator calculator = new Calculator(numbers, operator);
-
-        try {
-            result = calculator.calculate();
-            System.out.println((int) result);
-        }
-        catch (ArithmeticException e)
+        switch (charInput())
         {
-            System.out.println(e.getMessage());
-        }
+            case '1':
+                operator = '+';
+                while (true)
+                {
+                    System.out.print("Ange tal eller '=': ");
+                    Double input = numInput();
 
+                    if (input == null)
+                    {
+                        break;
+                    }
+                    numbers.add(input);
+
+                }
+                //KALKYLERING
+                Calculator calculator = new Calculator(numbers, operator);
+
+                try
+                {
+                    result = calculator.calculate();
+                    System.out.println(result);
+
+                    //System.out.println((int) result); //FÖR MODULUS
+                }
+                catch (ArithmeticException e)
+                {
+                    System.out.println(e.getMessage());
+
+                }
+                break;
+
+            case '2':
+                break;
+
+
+        }
+        
     }
+
+    //HANTERAR INMATNING AV SIFFROR
+    public static Double numInput()
+    {
+        Scanner scanner = new Scanner(System.in);
+        String input = scanner.nextLine();
+
+        if (input.equalsIgnoreCase("="))
+        {
+            return null;
+        }
+        try
+        {
+            return Double.parseDouble(input); // Omvandlar String till Double.
+        }
+        catch (NumberFormatException e)
+        {
+            throw new NumberFormatException(redText + "FEL: Endast siffror eller '='." + resetText);
+        }
+    }
+
+    //HANTERAR INMATNING AV CHAR.
+    public static char charInput()
+    {
+        Scanner scanner = new Scanner(System.in);
+
+        return scanner.nextLine().toUpperCase().charAt(0);
+    }
+
+    public static final String redText= "\u001B[91m";
+    public static final String resetText = "\u001B[0m";
 }
