@@ -77,4 +77,8 @@ public class Calculator {
         }
         return quotient;
     }
+
+    /*TO DO:
+    * MODULUS METOD
+    * */
 }
