@@ -23,6 +23,8 @@ public class Calculator {
                 return multiply();
             case '/':
                 return divide();
+            case '%':
+                return modulus();
             default:
                 throw new IllegalArgumentException("Ogiltig operator: " + operator);
         }
@@ -78,7 +80,31 @@ public class Calculator {
         return quotient;
     }
 
-    /*TO DO:
-    * MODULUS METOD
-    * */
+    public int modulus()
+    {
+        double firstNum = numbers.get(0);
+        double secondNum = numbers.get(1);
+
+        if (numbers.size() == 2 && secondNum != 0) { //Kollar så det endast är två tal.
+
+            if (firstNum == Math.floor(firstNum) && secondNum == Math.floor(secondNum)) { //Kollar så det är ett heltal.
+
+                firstNum %= secondNum;
+            }
+            else
+            {
+                throw new ArithmeticException(redText + "FEL: Modulo kan endast göras med heltal!" + resetText);
+            }
+        }
+
+        else
+        {
+            throw new ArithmeticException(redText + "FEL: Modulo kan endast göras med två heltal och tal #2 får ej vara '0'." + resetText);
+        }
+        return (int)firstNum;
+
+    }
+
+    public static final String redText= "\u001B[91m";
+    public static final String resetText = "\u001B[0m";
 }

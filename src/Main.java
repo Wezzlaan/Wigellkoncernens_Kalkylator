@@ -12,24 +12,22 @@ public class Main {
         double result;
 
         //Lägger till tal i ArrayList
-        numbers.add(9.0);
-        numbers.add(3.0);
+        numbers.add(10.1);
+        numbers.add(1.0);
         //numbers.add(0.0);
 
-        char operator = '/';
+        char operator = '%';
 
         Calculator calculator = new Calculator(numbers, operator);
 
         try {
             result = calculator.calculate();
-            System.out.println(result);
+            System.out.println((int) result);
         }
         catch (ArithmeticException e)
         {
             System.out.println(e.getMessage());
         }
-        //TIP Press <shortcut actionId="ShowIntentionActions"/> with your caret at the highlighted text
-        // to see how IntelliJ IDEA suggests fixing it.
 
     }
 }
