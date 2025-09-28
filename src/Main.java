@@ -53,7 +53,7 @@ public class Main {
 
 
         }
-        
+
     }
 
     //HANTERAR INMATNING AV SIFFROR
