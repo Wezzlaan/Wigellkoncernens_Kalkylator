@@ -10,47 +10,68 @@ public class Main {
         * PLACEHOLDER FÖR ATT TESTA FUNKTIONER
         * =====================================*/
         ArrayList<Double> numbers = new ArrayList<>();
-        double result;
         char operator;
 
-        System.out.println("\n[1]: Addition\n[2]: Subtraktion\n[3]: Multiplikation\n[4]: Division\n[5]: Modulus\n[A]: Avsluta. ");
+        System.out.println("\n[1]: Addition\n[2]: Subtraktion\n[3]: Multiplikation\n[4]: Division\n[5]: Modulus\n[A]: Avsluta.\n ");
 
         switch (charInput())
         {
             case '1':
+
                 operator = '+';
-                while (true)
-                {
-                    System.out.print("Ange tal eller '=': ");
-                    Double input = numInput();
 
-                    if (input == null)
-                    {
-                        break;
-                    }
-                    numbers.add(input);
+                fillArrList(numbers);
 
-                }
-                //KALKYLERING
-                Calculator calculator = new Calculator(numbers, operator);
+                printResult(numbers, operator);
 
-                try
-                {
-                    result = calculator.calculate();
-                    System.out.println(result);
-
-                    //System.out.println((int) result); //FÖR MODULUS
-                }
-                catch (ArithmeticException e)
-                {
-                    System.out.println(e.getMessage());
-
-                }
                 break;
 
             case '2':
+
+                operator = '-';
+
+                fillArrList(numbers);
+
+                printResult(numbers, operator);
+
                 break;
 
+            case '3':
+
+                operator = '*';
+
+                fillArrList(numbers);
+
+                printResult(numbers, operator);
+
+                break;
+
+            case '4':
+
+                operator = '/';
+
+                fillArrList(numbers);
+
+                printResult(numbers, operator);
+
+                break;
+
+            case '5':
+
+                operator = '%';
+
+                fillArrList(numbers);
+
+                printResult(numbers, operator);
+
+                break;
+
+            case 'A':
+
+                System.out.println(cyanText + "\n=====================");
+                System.out.println("Välkommen åter! (◕‿◕) ");
+                System.out.println(cyanText + "=====================" + resetText);
+                break;
 
         }
 
@@ -83,7 +104,41 @@ public class Main {
 
         return scanner.nextLine().toUpperCase().charAt(0);
     }
+    
+    public static void printResult(ArrayList<Double> numbers, char operator)
+    {
+        Calculator calculator = new Calculator(numbers, operator);
 
+        try
+        {
+            double result = calculator.calculate();
+            System.out.println(greenText + "\nResultat: " + result + resetText);
+        }
+        catch (ArithmeticException e)
+        {
+            System.out.println(redText + e.getMessage() + resetText);
+
+        }
+    }
+
+    public static void fillArrList(ArrayList<Double> numbers)
+    {
+        while (true)
+        {
+            System.out.print("\nAnge tal eller '=': ");
+            Double input = numInput();
+
+            if (input == null)
+            {
+                break;
+            }
+            numbers.add(input);
+        }
+    }
+    
     public static final String redText= "\u001B[91m";
     public static final String resetText = "\u001B[0m";
+    public static final String greenText  = "\u001B[92m";
+    public static final String cyanText   = "\u001B[96m";
+    
 }
