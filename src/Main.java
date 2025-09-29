@@ -4,6 +4,8 @@ import java.util.Scanner;
 //TIP To <b>Run</b> code, press <shortcut actionId="Run"/> or
 // click the <icon src="AllIcons.Actions.Execute"/> icon in the gutter.
 public class Main {
+
+    private static final Scanner scanner = new Scanner(System.in);
     public static void main(String[] args) {
 
         /*=====================================
@@ -12,67 +14,71 @@ public class Main {
         ArrayList<Double> numbers = new ArrayList<>();
         char operator;
 
-        System.out.println("\n[1]: Addition\n[2]: Subtraktion\n[3]: Multiplikation\n[4]: Division\n[5]: Modulus\n[A]: Avsluta.\n ");
+        boolean isOperating = true;
 
-        switch (charInput())
-        {
-            case '1':
+        while (isOperating) {
 
-                operator = '+';
+            mainMenu();
 
-                fillArrList(numbers);
+            switch (charInput()) {
+                case '1':
 
-                printResult(numbers, operator);
+                    operator = '+';
 
-                break;
+                    fillArrList(numbers, operator);
 
-            case '2':
+                    printResult(numbers, operator);
 
-                operator = '-';
+                    isOperating = terminateContinue();
 
-                fillArrList(numbers);
+                    break;
 
-                printResult(numbers, operator);
+                case '2':
 
-                break;
+                    operator = '-';
 
-            case '3':
+                    fillArrList(numbers, operator);
 
-                operator = '*';
+                    printResult(numbers, operator);
 
-                fillArrList(numbers);
+                    break;
 
-                printResult(numbers, operator);
+                case '3':
 
-                break;
+                    operator = '*';
 
-            case '4':
+                    fillArrList(numbers, operator);
 
-                operator = '/';
+                    printResult(numbers, operator);
 
-                fillArrList(numbers);
+                    break;
 
-                printResult(numbers, operator);
+                case '4':
 
-                break;
+                    operator = '/';
 
-            case '5':
+                    fillArrList(numbers, operator);
 
-                operator = '%';
+                    printResult(numbers, operator);
 
-                fillArrList(numbers);
+                    break;
 
-                printResult(numbers, operator);
+                case '5':
 
-                break;
+                    operator = '%';
 
-            case 'A':
+                    fillArrList(numbers, operator);
 
-                System.out.println(cyanText + "\n=====================");
-                System.out.println("Välkommen åter! (◕‿◕) ");
-                System.out.println(cyanText + "=====================" + resetText);
-                break;
+                    printResult(numbers, operator);
 
+                    break;
+
+                case 'A':
+
+                    isOperating = false;
+                    break;
+
+            }
         }
 
     }
@@ -80,8 +86,7 @@ public class Main {
     //HANTERAR INMATNING AV SIFFROR
     public static Double numInput()
     {
-        Scanner scanner = new Scanner(System.in);
-        String input = scanner.nextLine();
+        String input = scanner.nextLine().trim();
 
         if (input.equalsIgnoreCase("="))
         {
@@ -100,9 +105,14 @@ public class Main {
     //HANTERAR INMATNING AV CHAR.
     public static char charInput()
     {
-        Scanner scanner = new Scanner(System.in);
+        String input = scanner.nextLine().trim();
 
-        return scanner.nextLine().toUpperCase().charAt(0);
+        if (input.isEmpty())
+        {
+            throw new IllegalArgumentException("Du måste skriva något.");
+        }
+
+        return input.toUpperCase().charAt(0);
     }
     
     public static void printResult(ArrayList<Double> numbers, char operator)
@@ -112,7 +122,7 @@ public class Main {
         try
         {
             double result = calculator.calculate();
-            System.out.println(greenText + "\nResultat: " + result + resetText);
+            System.out.println(greenText + "\nResultat: " + cyanText + result + resetText);
         }
         catch (ArithmeticException e)
         {
@@ -121,8 +131,16 @@ public class Main {
         }
     }
 
-    public static void fillArrList(ArrayList<Double> numbers)
+    public static void fillArrList(ArrayList<Double> numbers, char operator)
     {
+        numbers.clear();
+
+        System.out.println(blueText + "\n===================================");
+        System.out.println("            [" + getOperator(operator) + "]");
+        System.out.println(blueText + "===================================" + resetText);
+
+        System.out.println(darkYellowText + "När du är klar med dina siffror, \nange '=' för resultat av uträkning." + resetText);
+
         while (true)
         {
             System.out.print("\nAnge tal eller '=': ");
@@ -135,10 +153,77 @@ public class Main {
             numbers.add(input);
         }
     }
-    
+
+    public static void mainMenu()
+    {
+        System.out.println(cyanText + "===================================");
+        System.out.println(greenText + "         || KALKYLATOR ||           ");
+        System.out.println(cyanText + "===================================" + resetText);
+        System.out.println(darkYellowText + "Välj ett räknesätt och skriv sedan in \nde talen du vill ha med i uträkningen: ");
+        System.out.println(blueText + "\n         [1]: Addition" +
+                           cyanText + "\n         [2]: Subtraktion" +
+                           greenText + "\n         [3]: Multiplikation" +
+                           yellowText + "\n         [4]: Division" +
+                           whiteText + "\n         [5]: Modulus" +
+                           redText + "\n         [A]: Avsluta" + resetText);
+
+        System.out.print("\nSkriv här: ");
+    }
+
+    public static String getOperator(char operator)
+    {
+        switch (operator)
+        {
+            case '+':
+                return "ADDITION";
+            case '-':
+                return "SUBTRAKTION";
+            case '*':
+                return "MULTIPLIKATION";
+            case '/':
+                return "DIVISION";
+            case '%':
+                return "MODULUS";
+            default:
+                return null;
+        }
+    }
+
+    public static boolean terminateContinue()
+    {
+        System.out.println("\nVill du " + greenText + "räkna mer" + resetText + " eller " + redText + "avsluta? " + resetText + "y/n: ");
+        char choice = charInput();
+
+        if (choice == 'Y')
+        {
+            return true;
+        }
+        else if (choice == 'N')
+        {
+            shutdown();
+            return false;
+        }
+        else
+        {
+            throw new IllegalArgumentException("Ogiltigt val.");
+        }
+
+    }
+
+    public static void shutdown()
+    {
+        System.out.println(cyanText + "\n=====================");
+        System.out.println("Välkommen åter! (◕‿◕) ");
+        System.out.println(cyanText + "=====================" + resetText);
+    }
+
+
     public static final String redText= "\u001B[91m";
     public static final String resetText = "\u001B[0m";
     public static final String greenText  = "\u001B[92m";
     public static final String cyanText   = "\u001B[96m";
-    
+    public static final String blueText   = "\u001B[94m";
+    public static final String yellowText = "\u001B[93m";
+    public static final String whiteText  = "\u001B[97m";
+    public static final String darkYellowText = "\u001B[33m";
 }
