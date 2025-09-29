@@ -27,8 +27,9 @@ public class Main {
 
                     fillArrList(numbers, operator);
 
-                    printResult(numbers, operator);
-
+                    if (!numbers.isEmpty()) {
+                        printResult(numbers, operator);
+                    }
                     isOperating = terminateContinue();
 
                     break;
@@ -39,7 +40,11 @@ public class Main {
 
                     fillArrList(numbers, operator);
 
-                    printResult(numbers, operator);
+                    if (!numbers.isEmpty()) {
+                        printResult(numbers, operator);
+                    }
+
+                    isOperating = terminateContinue();
 
                     break;
 
@@ -49,7 +54,11 @@ public class Main {
 
                     fillArrList(numbers, operator);
 
-                    printResult(numbers, operator);
+                    if (!numbers.isEmpty()) {
+                        printResult(numbers, operator);
+                    }
+
+                    isOperating = terminateContinue();
 
                     break;
 
@@ -59,7 +68,11 @@ public class Main {
 
                     fillArrList(numbers, operator);
 
-                    printResult(numbers, operator);
+                    if (!numbers.isEmpty()) {
+                        printResult(numbers, operator);
+                    }
+
+                    isOperating = terminateContinue();
 
                     break;
 
@@ -69,7 +82,11 @@ public class Main {
 
                     fillArrList(numbers, operator);
 
-                    printResult(numbers, operator);
+                    if (!numbers.isEmpty()) {
+                        printResult(numbers, operator);
+                    }
+
+                    isOperating = terminateContinue();
 
                     break;
 
@@ -77,6 +94,10 @@ public class Main {
 
                     isOperating = false;
                     break;
+
+                default:
+
+                    System.out.println(redText + "FEL: Välj ett val ur listan.");
 
             }
         }
@@ -98,7 +119,7 @@ public class Main {
         }
         catch (NumberFormatException e)
         {
-            throw new NumberFormatException(redText + "FEL: Endast siffror eller '='." + resetText);
+            throw new NumberFormatException(redText + "FEL: Endast siffror eller '='. OBS: Använd '.' för decimal." + resetText);
         }
     }
 
@@ -143,14 +164,17 @@ public class Main {
 
         while (true)
         {
-            System.out.print("\nAnge tal eller '=': ");
-            Double input = numInput();
+            try {
+                System.out.print("\nAnge tal eller '=': ");
+                Double input = numInput();
 
-            if (input == null)
-            {
-                break;
+                if (input == null) {
+                    break;
+                }
+                numbers.add(input);
+            } catch (Exception e) {
+                System.out.println(redText + e.getMessage() + resetText);
             }
-            numbers.add(input);
         }
     }
 
@@ -191,14 +215,15 @@ public class Main {
 
     public static boolean terminateContinue()
     {
-        System.out.println("\nVill du " + greenText + "räkna mer" + resetText + " eller " + redText + "avsluta? " + resetText + "y/n: ");
+        System.out.print("\nVill du " + greenText + "[F]ortsätta" + resetText +
+                            " eller " + redText + "[A]vsluta? " + resetText + "Ange f/a: ");
         char choice = charInput();
 
-        if (choice == 'Y')
+        if (choice == 'F')
         {
             return true;
         }
-        else if (choice == 'N')
+        else if (choice == 'A')
         {
             shutdown();
             return false;
